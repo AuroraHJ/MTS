@@ -1,5 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <odoo>
+    <!-- Acción de ventana para Tickets -->
+    <record id="MTS_action_helpdesk_ticket" model="ir.actions.act_window">
+        <field name="name">Tickets</field>
+        <field name="res_model">helpdesk.ticket</field>
+        <field name="view_mode">tree,form</field>
+    </record>
 
+    <!-- Acceso al modelo helpdesk.ticket -->
+    <record id="access_helpdesk_ticket_user" model="ir.model.access">
+        <field name="name">helpdesk.ticket user access</field>
+        <field name="model_id" ref="model_helpdesk_ticket"/>
+        <field name="group_id" ref="base.group_user"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+    </record>
+
+    <!-- Menús -->
+    <menuitem id="MTS_menu_helpdesk_ticket_root" name="Helpdesk"/>
+    <menuitem id="MTS_menu_helpdesk_ticket" name="Tickets" parent="MTS_menu_helpdesk_ticket_root"
+              action="MTS_action_helpdesk_ticket"/>
+
+    <!-- Vistas -->
+    <record id="MTS_view_helpdesk_ticket_tree" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.tree</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="x_name"/>
+                <field name="x_partner_id"/>
+                <field name="x_state"/>
+                <field name="x_create_date"/>
+                <field name="x_user_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="MTS_view_helpdesk_ticket_form" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.form</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="x_name"/>
+                        <field name="x_partner_id"/>
+                        <field name="x_state"/>
+                        <field name="x_description"/>
+                        <field name="x_create_date"/>
+                        <field name="x_user_id"/>
+                    </group>
+                    <group>
+                        <button string="RESUELTO" type="object" name="action_mark_as_resolved" class="btn-primary"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
 </odoo>

@@ -19,4 +19,4 @@ class HelpdeskTicket(models.Model):
     x_user_id = fields.Many2one('res.users', string='Usuario asignado')
 
     def action_mark_as_resolved(self):
-        self.write({'state': 'resuelto'})
+        self.write({'x_state': 'resuelto'})
